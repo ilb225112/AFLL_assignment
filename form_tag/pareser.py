@@ -1,6 +1,7 @@
-import ply.yacc as yacc # type: ignore
+import ply.yacc as yacc  # type: ignore
 from lexer import tokens
 
+# Parsing rules
 def p_form(p):
     '''form : FORM_OPEN inputs FORM_CLOSE'''
     print("Parsed a form.")
@@ -8,28 +9,33 @@ def p_form(p):
 def p_inputs(p):
     '''inputs : input inputs
               | input'''
-    pass
+    pass  
 
 def p_input(p):
-    '''input : INPUT_TEXT
-             | INPUT_PASSWORD
+    '''input : INPUT_TEXT 
+             | INPUT_PASSWORD 
              | INPUT_SUBMIT'''
-
-    if p[1].startswith('<input type="text"'):
+    handle_input(p[1])  
+    
+def handle_input(input_tag):
+    if input_tag.startswith('<input type="text"'):
         print("Parsed a text input for username.")
-        handle_attributes(p[1])
-    elif p[1].startswith('<input type="password"'):
+    elif input_tag.startswith('<input type="password"'):
         print("Parsed a password input.")
-        handle_attributes(p[1])
-    elif p[1].startswith('<input type="submit"'):
+    elif input_tag.startswith('<input type="submit"'):
         print("Parsed a submit button.")
-        handle_attributes(p[1])
+    
+    handle_attributes(input_tag)
 
 def handle_attributes(input_tag):
     import re
     attr_matches = re.findall(r'(\w+)="([^"]+)"', input_tag)
     for attr, val in attr_matches:
         print(f"Parsed attribute: {attr}, value: {val}")
+
+def p_attr(p):
+    '''attr : ATTR'''
+    print(f"Parsed attribute: {p[1]}")
 
 def p_error(p):
     print(f"Syntax error at '{p.value}'" if p else "Syntax error at EOF")
