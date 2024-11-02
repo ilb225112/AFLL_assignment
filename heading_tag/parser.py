@@ -2,32 +2,44 @@
 import ply.yacc as yacc
 from lexer import tokens
 
+def p_heading(p):
+    '''heading : heading1
+                | heading2
+                | heading3
+                | heading4
+                | heading5
+                | heading6 
+                | heading heading
+                '''
+
 def p_heading1(p):
-    '''heading : HEADING1 CONTENT CLOSE_HEADING1'''
+    '''heading1 : HEADING1 CONTENT CLOSE_HEADING1'''
     print(f"Heading 1: {p[2]}")
 
 def p_heading2(p):
-    '''heading : HEADING2 CONTENT CLOSE_HEADING2'''
+    '''heading2 : HEADING2 CONTENT CLOSE_HEADING2'''
     print(f"Heading 2: {p[2]}")
 
 def p_heading3(p):
-    '''heading : HEADING3 CONTENT CLOSE_HEADING3'''
+    '''heading3 : HEADING3 CONTENT CLOSE_HEADING3'''
     print(f"Heading 3: {p[2]}")
 
 def p_heading4(p):
-    '''heading : HEADING4 CONTENT CLOSE_HEADING4'''
+    '''heading4 : HEADING4 CONTENT CLOSE_HEADING4'''
     print(f"Heading 4: {p[2]}")
 
 def p_heading5(p):
-    '''heading : HEADING5 CONTENT CLOSE_HEADING5'''
+    '''heading5 : HEADING5 CONTENT CLOSE_HEADING5'''
     print(f"Heading 5: {p[2]}")
 
 def p_heading6(p):
-    '''heading : HEADING6 CONTENT CLOSE_HEADING6'''
+    '''heading6 : HEADING6 CONTENT CLOSE_HEADING6'''
     print(f"Heading 6: {p[2]}")
+
 
 def p_error(p):
     print("Syntax error at '%s'" % p.value if p else "Syntax error at EOF")
+
 
 # Build the parser
 parser = yacc.yacc()
