@@ -12,7 +12,7 @@ t_CONTENT = r'[^<]+'
 t_ignore = ' \t\n'
 
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}'")
+    #print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
 lexer = lex.lex()
@@ -36,4 +36,4 @@ while True:
     tok = lexer.token()
     if not tok:
         break
-    print(tok)
+    print(tok.type,'->',tok.value)

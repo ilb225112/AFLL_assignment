@@ -1,6 +1,6 @@
 import ply.lex as lex # type: ignore
 
-tokens = ('FORM_OPEN', 'FORM_CLOSE', 'INPUT_TEXT', 'INPUT_PASSWORD', 'INPUT_SUBMIT', 'ATTR', 'VALUE')
+tokens = ('FORM_OPEN', 'FORM_CLOSE', 'INPUT_TEXT', 'INPUT_PASSWORD', 'INPUT_SUBMIT')
 
 t_FORM_OPEN = r'<form[^>]*>'                    #accepts form id="abcd" action="submit"... so [^>]* 0 or more occurences of char class not having >
 t_FORM_CLOSE = r'</form>'
@@ -11,7 +11,6 @@ t_INPUT_SUBMIT = r'<input\s+type="submit"[^>]*>'
 t_ignore = ' \t\n'
 
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
 # Build the lexer
@@ -32,4 +31,4 @@ while True:
     tok = lexer.token()
     if not tok:
         break
-    print(tok)
+    print(tok.type,'->',tok.value)

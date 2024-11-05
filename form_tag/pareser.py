@@ -15,30 +15,13 @@ def p_input(p):
     '''input : INPUT_TEXT 
              | INPUT_PASSWORD 
              | INPUT_SUBMIT'''
-    handle_input(p[1])  
     
-def handle_input(input_tag):
-    if input_tag.startswith('<input type="text"'):
-        print("Parsed a text input for username.")
-    elif input_tag.startswith('<input type="password"'):
-        print("Parsed a password input.")
-    elif input_tag.startswith('<input type="submit"'):
-        print("Parsed a submit button.")
-    
-    handle_attributes(input_tag)
-
-def handle_attributes(input_tag):
-    import re
-    attr_matches = re.findall(r'(\w+)="([^"]+)"', input_tag)
-    for attr, val in attr_matches:
-        print(f"Parsed attribute: {attr}, value: {val}")
-
-def p_attr(p):
-    '''attr : ATTR'''
-    print(f"Parsed attribute: {p[1]}")
-
 def p_error(p):
-    print(f"Syntax error at '{p.value}'" if p else "Syntax error at EOF")
+    if p:
+        print(f"Syntax error at ")
+    else:
+        print("Syntax error at EOF")
+    raise SyntaxError("Parsing halted due to syntax error.")
 
 parser = yacc.yacc()
 
@@ -50,8 +33,12 @@ html_input = '''
 </form>
 '''
 
-result = parser.parse(html_input)
-
+try:
+    result = parser.parse(html_input)
+except SyntaxError as e:
+    print(e)
+    
+    
 while True:
     try:
         s = input('form> ')  
@@ -62,4 +49,9 @@ while True:
         break
     if not s:
         continue  
-    result = parser.parse(s)
+    
+    try:
+        result = parser.parse(s)
+    except SyntaxError as e:
+        print(e)
+        continue

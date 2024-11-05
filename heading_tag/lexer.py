@@ -43,7 +43,6 @@ def t_newline(t):
 
 # Error handling rule
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
 # Build the lexer
@@ -64,4 +63,4 @@ while True:
     tok = lexer.token()
     if not tok:
         break  # No more input
-    print(tok)
+    print(tok.type,'->',tok.value)
