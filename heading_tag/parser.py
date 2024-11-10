@@ -56,3 +56,18 @@ data = '''
 
 # Parse the input data
 parser.parse(data)
+
+'''
+Valid:
+<h1>Heading 1 content</h1>
+<h2>Heading 2 content</h2>
+
+<h3>Another heading</h3>
+<h4>Yet another heading</h4>
+
+Invalid:
+<h1>Heading without closing tag
+
+<h2>Heading content</h3>
+
+'''

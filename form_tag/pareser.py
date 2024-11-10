@@ -55,3 +55,26 @@ while True:
     except SyntaxError as e:
         print(e)
         continue
+
+'''
+Valid Examples:
+<form action="/submit" method="post">
+  <input type="text" name="username">
+  <input type="password" name="password">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="/login">
+  <input type="text" name="user">
+</form>
+
+Invalid Examples:
+<form action="/submit" method="post">
+  <input type="text" name="username">
+  <input type="submit" value="Submit">
+
+<form>
+  <input type="password" name="password"
+  <input type="submit" value="Submit">
+</form>
+'''

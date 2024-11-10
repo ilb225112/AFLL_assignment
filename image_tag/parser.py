@@ -32,8 +32,12 @@ while True:
 #parser.parse('<img src="sdkcksd" alt="dncjnsc">' )
 
 '''
-GRAMMAR - 
-img_tag : IMG_TAG src_attr alt_attr CLOSE_TAG
-src_attr : SRC_ATTR
-alt_attr : ALT_ATTR
+valid: 
+<img src="image.jpg" alt="An image">
+
+<img src="image.jpg">
+
+invalid:
+<img alt="An image">
+<img src="image.jpg" alt="An image"
 '''
